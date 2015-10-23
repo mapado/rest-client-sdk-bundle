@@ -1,0 +1,28 @@
+{
+    "name": "mapado/rest-client-sdk-bundle",
+    "description": "Rest Client SDK Bundle for hydra API",
+    "autoload": {
+        "psr-4": { "Mapado\\RestClientSdkBundle\\": "src/" }
+    },
+    "require": {
+        "symfony/http-kernel": "^2.7",
+        "symfony/config": "^2.7",
+        "symfony/dependency-injection": "^2.7",
+        "mapado/rest-client-sdk": "~0.3"
+    },
+    "require-dev": {
+        "atoum/atoum": "@stable",
+        "raulfraile/ladybug": "^1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julien Deniau",
+            "email": "julien.deniau@gmail.com"
+        },
+        {
+            "name": "Dimitri Allegoet",
+            "email": "dallegoet@gmail.com"
+        }
+    ]
+}
