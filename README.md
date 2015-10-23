@@ -7,6 +7,18 @@ Symfony bundle for [mapado/rest-client-sdk](https://github.com/mapado/rest-clien
 composer require mapado/rest-client-sdk-bundle
 ```
 
+Add it to your AppKernel.php
+```php
+    public function registerBundles()
+    {
+        $bundles = array(
+            // ...
+            new Mapado\RestClientSdkBundle\MapadoRestClientSdkBundle(),
+        )
+
+        // ...
+```
+
 ## Usage
 ```yaml
 # app/config/config.yml
