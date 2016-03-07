@@ -116,12 +116,13 @@ class MapadoRestClientSdkExtension extends Extension
     private function loadEntityManager($key, array $config, ContainerBuilder $container)
     {
         $restClient = new Definition(
-            'Mapado\RestClientSdk\RestClient',
+            'Mapado\RestClientSdkBundle\RequestAwareRestClient',
             [
                 new Reference('mapado.rest_client_sdk.http_client'),
-                    $config['server_url']
+                $config['server_url']
             ]
         );
+        $restClient->addMethodCall('setRequestStack', [new Reference('request_stack')]);
         $restClient->setPublic(false);
 
         $container->setDefinition(
