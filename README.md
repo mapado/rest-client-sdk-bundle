@@ -39,7 +39,7 @@ The bundle registers one service for each entity manager that you defined (in th
 
 The name of the service will be: `mapado.rest_client_sdk.<manager_name>`.
 
-As I named my entity manager `foo`, The service name here will be : `mapado.rest_client_sdk.foo` and the GuzzleHttp Client service name will be : `mapado.rest_client_sdk.foo_http_client`
+As I named my entity manager `foo`, The service name here will be : `mapado.rest_client_sdk.foo`.
 
 Imagine I have the following model, as defined in the [component documentation](https://github.com/mapado/rest-client-sdk#configuration):
 ```php
