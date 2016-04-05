@@ -45,11 +45,6 @@ class MapadoRestClientSdkExtension extends Extension
         $this->debug = $config['debug'];
         $this->cacheDir = $config['cache_dir'];
 
-        // create http client
-        $guzzle = new Definition('GuzzleHttp\Client');
-        $guzzle->setPublic(false);
-        $container->setDefinition('mapado.rest_client_sdk.http_client', $guzzle);
-
         // load entity managers
         if (!empty($config['entity_managers'])) {
             $this->loadEntityManagerList($config['entity_managers'], $container);
@@ -115,10 +110,19 @@ class MapadoRestClientSdkExtension extends Extension
      */
     private function loadEntityManager($key, array $config, ContainerBuilder $container)
     {
+        // create http client
+        $guzzleServiceName = sprintf('mapado.rest_client_sdk.%s_http_client', $key);
+        $args = [
+            ['headers' => $config['request_headers']],
+        ];
+        $guzzle = new Definition('GuzzleHttp\Client', $args);
+        $guzzle->setPublic(false);
+        $container->setDefinition($guzzleServiceName, $guzzle);
+
         $restClient = new Definition(
             'Mapado\RestClientSdkBundle\RequestAwareRestClient',
             [
-                new Reference('mapado.rest_client_sdk.http_client'),
+                new Reference($guzzleServiceName),
                 $config['server_url']
             ]
         );
