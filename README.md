@@ -28,16 +28,18 @@ mapado_rest_client_sdk:
     entity_managers:
         foo:
             server_url: 'http://foo.com:8080'
+            request_headers:
+                MyHeader: 'MyValue'
             mappings:
                 prefix: /v1
                 dir: '%kernel.root_dir%/../src/Foo/Bar/Entity/'
 ```
 
-The bundle register a service for each entity manager that you defined (in this case just one for `foo`). 
+The bundle registers one service for each entity manager that you defined (in this case just one for `foo`).
 
-The name of the service will be: `mapado.rest_client_sdk.<manager_name>`. 
+The name of the service will be: `mapado.rest_client_sdk.<manager_name>`.
 
-As I named my entity manager `foo`, The service name here will be : `mapado.rest_client_sdk.foo`
+As I named my entity manager `foo`, The service name here will be : `mapado.rest_client_sdk.foo`.
 
 Imagine I have the following model, as defined in the [component documentation](https://github.com/mapado/rest-client-sdk#configuration):
 ```php
