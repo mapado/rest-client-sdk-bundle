@@ -112,9 +112,12 @@ class MapadoRestClientSdkExtension extends Extension
     {
         // create http client
         $guzzleServiceName = sprintf('mapado.rest_client_sdk.%s_http_client', $key);
-        $args = [
-            ['headers' => $config['request_headers']],
-        ];
+        $args = [];
+        if (!empty($config['request_headers'])) {
+            $args = [
+                ['headers' => $config['request_headers']],
+            ];
+        }
         $guzzle = new Definition('GuzzleHttp\Client', $args);
         $guzzle->setPublic(false);
         $container->setDefinition($guzzleServiceName, $guzzle);
