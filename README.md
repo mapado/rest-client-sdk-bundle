@@ -1,4 +1,4 @@
-# Rest Client Sdk Bundle
+# Rest Client Sdk Bundle [![StyleCI](https://styleci.io/repos/44800866/shield)](https://styleci.io/repos/44800866)
 
 Symfony bundle for [mapado/rest-client-sdk](https://github.com/mapado/rest-client-sdk)
 
