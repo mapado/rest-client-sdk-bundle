@@ -33,6 +33,10 @@ mapado_rest_client_sdk:
             mappings:
                 prefix: /v1
                 dir: '%kernel.root_dir%/../src/Foo/Bar/Entity/'
+            cache:
+                cache_item_pool: 'psr6_cache_provider' # default null
+                cache_prefix: 'my_prefix' # default null
+
 ```
 
 The bundle registers one service for each entity manager that you defined (in this case just one for `foo`).
@@ -59,3 +63,6 @@ $cart = $this->get('mapado.rest_client_sdk.foo')->getRepository('carts')->find(1
 ```
 
 For a more complete information on the usage, I recommand you to look at the [component documentation](https://github.com/mapado/rest-client-sdk#usage)
+
+### Using cache
+By providing a Psr6 `Psr\Cache\CacheItemPoolInterface` to cache.cache_item_pool, each entity and entityList fetched will be stored in cache.
