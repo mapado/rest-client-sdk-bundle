@@ -65,4 +65,4 @@ $cart = $this->get('mapado.rest_client_sdk.foo')->getRepository('carts')->find(1
 For a more complete information on the usage, I recommand you to look at the [component documentation](https://github.com/mapado/rest-client-sdk#usage)
 
 ### Using cache
-By providing a Psr6 `Psr\Cache\CacheItemPoolInterface` to cache.cache_item_pool, each entity and entityList fetched will be stored in cache.
+By providing a Psr6 `Psr\Cache\CacheItemPoolInterface` to cache.cache_item_pool, each entity and entityList fetched will be stored in cache. Set serialization to false on your `Psr\Cache\CacheItemPoolInterface` for complex objects (eg: Doctrine objects)
