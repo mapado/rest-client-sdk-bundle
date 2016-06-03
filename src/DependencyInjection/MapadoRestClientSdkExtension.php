@@ -162,16 +162,28 @@ class MapadoRestClientSdkExtension extends Extension
             $mapping
         )->addMethodCall('setMapping', [$mappingArray]);
 
+        $sdkDefinition = new Definition(
+            'Mapado\RestClientSdk\SdkClient',
+            [
+                new Reference(sprintf('mapado.rest_client_sdk.%s_rest_client', $key)),
+                new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
+            ]
+        );
+
+        if (!empty($config['cache']['cache_item_pool'])) {
+            $sdkDefinition->addMethodCall(
+                'setCacheItemPool',
+                [
+                    new Reference($config['cache']['cache_item_pool']),
+                    $config['cache']['cache_prefix']
+                ]
+            );
+        }
+
         $sdkClientName = sprintf('mapado.rest_client_sdk.%s', $key);
         $container->setDefinition(
             $sdkClientName,
-            new Definition(
-                'Mapado\RestClientSdk\SdkClient',
-                [
-                    new Reference(sprintf('mapado.rest_client_sdk.%s_rest_client', $key)),
-                    new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
-                ]
-            )
+            $sdkDefinition
         );
 
         return $sdkClientName;
