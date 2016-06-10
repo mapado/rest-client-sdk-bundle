@@ -169,6 +169,7 @@ class MapadoRestClientSdkExtension extends Extension
                 new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
             ]
         );
+        $sdkDefinition->addMethodCall('setFileCachePath', [ $this->cacheDir ]);
 
         if (!empty($config['cache']['cache_item_pool'])) {
             $sdkDefinition->addMethodCall(
