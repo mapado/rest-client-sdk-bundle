@@ -91,10 +91,12 @@
                     </div>
                     <div>
                         <strong>Response status code</strong>:
-                        {% if response.statusCode in [200, 204] %}
-                            <span class="label status-success">{{ response.statusCode }}</span>
-                        {% else %}
+                        {% if response.statusCode >= 400 %}
                             <span class="label status-error">{{ response.statusCode }}</span>
+                        {% elseif response.statusCode >= 300 %}
+                            <span class="label status-warning">{{ response.statusCode }}</span>
+                        {% else %}
+                            <span class="label status-success">{{ response.statusCode }}</span>
                         {% endif %}
                     </div>
                     <div>
