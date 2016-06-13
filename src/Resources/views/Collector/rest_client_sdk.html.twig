@@ -90,7 +90,17 @@
                         <strong>Took</strong>: {{ (1000 * query.queryTime)|number_format }} ms
                     </div>
                     <div>
-                        <strong>Response</strong>:
+                        <strong>Response status code</strong>:
+                        {% if response.statusCode >= 400 %}
+                            <span class="label status-error">{{ response.statusCode }}</span>
+                        {% elseif response.statusCode >= 300 %}
+                            <span class="label status-warning">{{ response.statusCode }}</span>
+                        {% else %}
+                            <span class="label status-success">{{ response.statusCode }}</span>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <strong>Response body</strong>:
                         <a class="toggle" href="#mapado_rest_client_sdk_{{ key }}" onclick="return toggle(this);" style="text-decoration: none;" title="Toggle response">
                             <img class="mapado_rest_client_sdk_{{key}}" alt="+" src="{{ asset('bundles/framework/images/blue_picto_more.gif') }}" style="display: inline; width: 12px; height: 12px; vertical-align: bottom;" />
                             <img class="mapado_rest_client_sdk_{{key}}" alt="-" src="{{ asset('bundles/framework/images/blue_picto_less.gif') }}" style="display: none; width: 12px; height: 12px; vertical-align: bottom;" />
