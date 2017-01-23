@@ -8,7 +8,7 @@
         "symfony/http-kernel": "^2.7|^3.0",
         "symfony/config": "^2.7|^3.0",
         "symfony/dependency-injection": "^2.7|^3.0",
-        "mapado/rest-client-sdk": "~0.17.0"
+        "mapado/rest-client-sdk": "0.*"
     },
     "require-dev": {
         "atoum/atoum": "@stable",
