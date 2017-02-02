@@ -57,12 +57,37 @@ class Cart {
 
 I can now do something like this:
 ```php
-$cartList = $this->get('mapado.rest_client_sdk.foo')->getRepository('carts')->findAll(); // `carts` is the `key` defined in the model
+$cartList = $this->get('mapado.rest_client_sdk.foo')
+    ->getRepository('carts')
+    ->findAll(); // `carts` is the `key` defined in the model
 
-$cart = $this->get('mapado.rest_client_sdk.foo')->getRepository('carts')->find(1);
+$cart = $this->get('mapado.rest_client_sdk.foo')
+    ->getRepository('carts')
+    ->find(1);
 ```
 
 For a more complete information on the usage, I recommand you to look at the [component documentation](https://github.com/mapado/rest-client-sdk#usage)
 
 ### Using cache
-By providing a Psr6 `Psr\Cache\CacheItemPoolInterface` to cache.cache_item_pool, each entity and entityList fetched will be stored in cache. Set serialization to false on your `Psr\Cache\CacheItemPoolInterface` for complex objects (eg: Doctrine objects)
+By providing a Psr6 [`Psr\Cache\CacheItemPoolInterface`](http://www.php-fig.org/psr/psr-6/#cacheitempoolinterface) to `cache.cache_item_pool`, each entity and entityList fetched will be stored in cache. 
+
+For example at Mapado, we are using the [Symfony Array cache adapter](http://symfony.com/doc/current/components/cache/cache_pools.html#array-cache-adapter) like this:
+```yaml
+services:
+    cache.rest_client_sdk:
+        class: 'Symfony\Component\Cache\Adapter\ArrayAdapter'
+        arguments:
+            - 0
+            - false # avoid serializing entities
+
+mapado_rest_client_sdk:
+    entity_managers:
+        foo:
+            server_url: '%server.url%'
+            mappings:
+                prefix: /v1
+                dir: '%kernel.root_dir%/../src/Mapado/Foo/Model/'
+            cache:
+                cache_item_pool: 'cache.rest_client_sdk' # the id of the cache service
+                cache_prefix: 'mapado_rest_client_'
+```
