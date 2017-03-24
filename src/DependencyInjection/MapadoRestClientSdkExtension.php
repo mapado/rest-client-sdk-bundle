@@ -145,22 +145,28 @@ class MapadoRestClientSdkExtension extends Extension
             ]
         );
 
-        $mappingArray = new Definition(
+        $entityListMapping = new Definition(
             'array',
             [$config['mappings']['dir']]
         );
-        $mappingArray->setFactory([
+        $entityListMapping->setFactory([
             $annotationDriver,
             'loadDirectory'
         ]);
 
-        $mapping = new Definition('Mapado\RestClientSdk\Mapping', [$config['mappings']['prefix']]);
+        $mapping = new Definition(
+            'Mapado\RestClientSdk\Mapping',
+            [
+                $config['mappings']['prefix'],
+                $config['mappings']['configuration'],
+            ]
+        );
         $mapping->setPublic(false);
 
         $container->setDefinition(
             sprintf('mapado.rest_client_sdk.%s_mapping', $key),
             $mapping
-        )->addMethodCall('setMapping', [$mappingArray]);
+        )->addMethodCall('setMapping', [$entityListMapping]);
 
         $sdkDefinition = new Definition(
             'Mapado\RestClientSdk\SdkClient',

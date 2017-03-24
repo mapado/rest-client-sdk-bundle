@@ -32,10 +32,12 @@ mapado_rest_client_sdk:
                 MyHeader: 'MyValue'
             mappings:
                 prefix: /v1
+                configuration:
+                    collectionKey: 'items' # default is "hydra:member"
                 dir: '%kernel.root_dir%/../src/Foo/Bar/Entity/'
             cache:
-                cache_item_pool: 'psr6_cache_provider' # default null
-                cache_prefix: 'my_prefix' # default null
+                cache_item_pool: 'psr6_cache_provider' # default is null
+                cache_prefix: 'my_prefix' # default is null
 
 ```
 
