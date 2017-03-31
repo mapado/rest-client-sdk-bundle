@@ -40,10 +40,14 @@ class RequestAwareRestClient extends RestClient
     {
         $parameters = parent::mergeDefaultParameters($parameters);
 
-        $language = $this->requestStack->getMasterRequest()->headers->get('Accept-Language');
+        $request = $this->requestStack->getMasterRequest();
 
-        $parameters['headers'] = isset($parameters['headers']) ? $parameters['headers'] : [];
-        $parameters['headers'] = array_merge($parameters['headers'], ['Accept-Language' => $language]);
+        if ($request) {
+            $language = $request->headers->get('Accept-Language');
+
+            $parameters['headers'] = isset($parameters['headers']) ? $parameters['headers'] : [];
+            $parameters['headers'] = array_merge($parameters['headers'], ['Accept-Language' => $language]);
+        }
 
         return $parameters;
     }
