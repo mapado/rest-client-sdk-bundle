@@ -171,8 +171,7 @@ class MapadoRestClientSdkExtension extends Extension
         $unitOfWork = new Definition(
             'Mapado\RestClientSdk\UnitOfWork',
             [
-                $config['mappings']['prefix'],
-                $config['mappings']['configuration'],
+                new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
             ]
         );
         $unitOfWork->setPublic(false);
