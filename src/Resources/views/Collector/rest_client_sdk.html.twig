@@ -44,6 +44,38 @@
 {% block head %}
     {# si le « panel » du profiler web nécessite des fichiers JS ou CSS spécifiques #}
     {{ parent() }}
+    <style>
+a.toggle {
+    text-decoration: none;
+}
+.toggle img {
+    vertical-align: middle;
+
+}
+.hidden {
+    display: none;
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/php.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', hljs.initHighlightingOnLoad);
+    </script>
+
+    <script type="text/javascript">//<![CDATA[
+        function toggle(link) {
+            "use strict";
+            var className = link.getAttribute('href').substr(1);
+            var children = document.getElementsByClassName(className);
+            var child, i;
+            for (i = 0; i < children.length; i++) {
+                child = children[i];
+                child.classList.toggle('hidden');
+            }
+        }
+    </script>
 {% endblock %}
 
 {% block menu %}
@@ -60,7 +92,19 @@
     </span>
 {% endblock %}
 
+{% macro dump(data, class="") %}
+    <pre>
+        <code class={{ class }}>
+            {#- 192 = constant('JSON_PRETTY_PRINT') | constant('JSON_UNESCAPED_SLASHES') -#}
+            {{- data|json_encode(192)|raw -}}
+        </code>
+    </pre>
+{% endmacro %}
+
 {% block panel %}
+    {% import _self as highlight %}
+
+
     {# le contenu du « panel » #}
     <h2>Requests</h2>
 
@@ -78,12 +122,21 @@
                 {% set response = query.response %}
 
                 <li  class="{{ cycle(['odd', 'even'], loop.index) }}">
-                    <div>
-                        <strong>Path</strong>: {{ query.method|upper }} {{ query.url }}
+                    <div style="overflow: auto">
+                        <strong>Path:</strong>
+                        <code>{{ query.method|upper }} {{ query.url }}</code>
                     </div>
                     {% if query.parameters %}
                         <div>
-                            <strong>Parameters</strong>: {{ query.parameters|json_encode(constant('JSON_PRETTY_PRINT')) }}
+                            <strong>Parameters</strong>:
+                            <a class="toggle" href="#mapado_rest_client_sdk_params_{{ key }}" onclick="return toggle(this);" title="Toggle parameters">
+                                <img class="mapado_rest_client_sdk_params_{{key}}" alt="+" src="{{ asset('bundles/framework/images/blue_picto_more.gif') }}" />
+                                <img class="hidden mapado_rest_client_sdk_params_{{key}}" alt="-" src="{{ asset('bundles/framework/images/blue_picto_less.gif') }}" />
+                                <small>Toggle parameters</small>
+                            </a>
+                            <div class="hidden mapado_rest_client_sdk_params_{{ key }}">
+                                {{ highlight.dump(query.parameters, 'json') }}
+                            </div>
                         </div>
                     {% endif %}
                     <div>
@@ -101,41 +154,18 @@
                     </div>
                     <div>
                         <strong>Response body</strong>:
-                        <a class="toggle" href="#mapado_rest_client_sdk_{{ key }}" onclick="return toggle(this);" style="text-decoration: none;" title="Toggle response">
-                            <img class="mapado_rest_client_sdk_{{key}}" alt="+" src="{{ asset('bundles/framework/images/blue_picto_more.gif') }}" style="display: inline; width: 12px; height: 12px; vertical-align: bottom;" />
-                            <img class="mapado_rest_client_sdk_{{key}}" alt="-" src="{{ asset('bundles/framework/images/blue_picto_less.gif') }}" style="display: none; width: 12px; height: 12px; vertical-align: bottom;" />
+                        <a class="toggle" href="#mapado_rest_client_sdk_{{ key }}" onclick="return toggle(this);" title="Toggle response">
+                            <img class="mapado_rest_client_sdk_{{key}}" alt="+" src="{{ asset('bundles/framework/images/blue_picto_more.gif') }}" />
+                            <img class="hidden mapado_rest_client_sdk_{{key}}" alt="-" src="{{ asset('bundles/framework/images/blue_picto_less.gif') }}" />
                             <small>Toggle response</small>
                         </a>
 
-                        <code class="mapado_rest_client_sdk_{{ key }}" style="display: none">
-                            <pre>
-                                {{- query.responseBody|json_encode(constant('JSON_PRETTY_PRINT')) -}}
-                            </pre>
-                        </code>
+                        <div class="hidden mapado_rest_client_sdk_{{ key }}">
+                            {{ highlight.dump(query.responseBody, 'json') }}
+                        </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
-
-    <script type="text/javascript">//<![CDATA[
-        function toggle(link) {
-            "use strict";
-            var className = link.getAttribute('href').substr(1);
-            var children = document.getElementsByClassName(className);
-            var child, i;
-            for (i = 0; i < children.length; i++) {
-                child = children[i];
-                toggleItem(child);
-            }
-        }
-        function toggleItem(item) {
-            if (item.style.display != 'none') {
-                item.style.display = 'none';
-            } else {
-                item.style.display = item.tagName === "IMG" ? "inline" : "block";
-            }
-            return false;
-        }
-    </script>
 {% endblock %}
