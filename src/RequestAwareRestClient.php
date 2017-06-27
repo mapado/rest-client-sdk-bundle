@@ -12,14 +12,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class RequestAwareRestClient extends RestClient
 {
     /**
-     * requestStack
-     *
-     * @var RequestStack
-     * @access private
-     */
-    private $requestStack;
-
-    /**
      * setRequestStack
      *
      * @param RequestStack $requestStack
@@ -28,9 +20,11 @@ class RequestAwareRestClient extends RestClient
      */
     public function setRequestStack(RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
+        $request = $requestStack->getMasterRequest();
 
-        $this->setCurrentRequest($this->requestStack->getMasterRequest());
+        if ($request) {
+            $this->setCurrentRequest($request);
+        }
 
         return $this;
     }
