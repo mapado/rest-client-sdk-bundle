@@ -168,11 +168,24 @@ class MapadoRestClientSdkExtension extends Extension
             $mapping
         )->addMethodCall('setMapping', [$entityListMapping]);
 
+        $unitOfWork = new Definition(
+            'Mapado\RestClientSdk\UnitOfWork',
+            [
+                new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
+            ]
+        );
+        $unitOfWork->setPublic(false);
+        $container->setDefinition(
+            sprintf('mapado.rest_client_sdk.%s_unit_of_work', $key),
+            $unitOfWork
+        );
+
         $sdkDefinition = new Definition(
             'Mapado\RestClientSdk\SdkClient',
             [
                 new Reference(sprintf('mapado.rest_client_sdk.%s_rest_client', $key)),
                 new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
+                new Reference(sprintf('mapado.rest_client_sdk.%s_unit_of_work', $key)),
             ]
         );
         $sdkDefinition->addMethodCall('setFileCachePath', [ $this->cacheDir ]);
