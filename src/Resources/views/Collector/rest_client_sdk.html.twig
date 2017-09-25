@@ -164,6 +164,19 @@ a.toggle {
                             {{ highlight.dump(query.responseBody, 'json') }}
                         </div>
                     </div>
+
+                    <div>
+                        <strong>Stacktrace</strong>:
+                        <a class="toggle" href="#mapado_rest_client_sdk_trace_{{ key }}" onclick="return toggle(this);" title="Toggle stacktrace">
+                            <img class="mapado_rest_client_sdk_trace_{{key}}" alt="+" src="{{ asset('bundles/framework/images/blue_picto_more.gif') }}" />
+                            <img class="hidden mapado_rest_client_sdk_trace_{{key}}" alt="-" src="{{ asset('bundles/framework/images/blue_picto_less.gif') }}" />
+                            <small>Toggle stacktrace</small>
+                        </a>
+
+                        <div class="hidden mapado_rest_client_sdk_trace_{{ key }}">
+                            {{ highlight.dump(query.backtrace, 'json') }}
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
         </ul>
