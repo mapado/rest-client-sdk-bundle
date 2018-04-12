@@ -2,11 +2,11 @@
 
 namespace Mapado\RestClientSdkBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -93,7 +93,7 @@ class MapadoRestClientSdkExtension extends Extension
         $mapping->setPublic(false);
         $mapping->addTag(
             'data_collector',
-            ['template' => 'MapadoRestClientSdkBundle:Collector:rest_client_sdk', 'id' => 'mapado_rest_client_sdk']
+            ['template' => '@MapadoRestClientSdk/Collector/rest_client_sdk.html.twig', 'id' => 'mapado_rest_client_sdk']
         );
 
         $container->setDefinition('mapado.rest_client_sdk.data_collector', $mapping);

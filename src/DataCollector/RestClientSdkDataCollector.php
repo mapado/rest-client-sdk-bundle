@@ -3,9 +3,9 @@
 namespace Mapado\RestClientSdkBundle\DataCollector;
 
 use Mapado\RestClientSdk\SdkClient;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
  * Class RestClientSdkDataCollector
@@ -72,5 +72,13 @@ class RestClientSdkDataCollector extends DataCollector
     public function getName()
     {
         return 'mapado_rest_client_sdk';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        $this->data = [];
     }
 }
