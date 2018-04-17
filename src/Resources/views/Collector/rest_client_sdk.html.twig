@@ -144,7 +144,9 @@ a.toggle {
                     </div>
                     <div>
                         <strong>Response status code</strong>:
-                        {% if response.statusCode >= 400 %}
+                        {% if not response %}
+                            <span class="label status-error">No response</span>
+                        {% elseif response.statusCode >= 400 %}
                             <span class="label status-error">{{ response.statusCode }}</span>
                         {% elseif response.statusCode >= 300 %}
                             <span class="label status-warning">{{ response.statusCode }}</span>
