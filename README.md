@@ -7,6 +7,17 @@ Symfony bundle for [mapado/rest-client-sdk](https://github.com/mapado/rest-clien
 composer require mapado/rest-client-sdk-bundle
 ```
 
+### Symfony flex
+
+Add it to your `config/bundle.php`
+```php
+return [
+    // ...
+    Mapado\RestClientSdkBundle\MapadoRestClientSdkBundle::class => ['all' => true],
+];
+```
+### Without flex
+
 Add it to your AppKernel.php
 ```php
     public function registerBundles()
@@ -20,8 +31,12 @@ Add it to your AppKernel.php
 ```
 
 ## Usage
+
+Add this in your configuration file :
+
+Symfony Flex: `config/packages/mapado_rest_client_sdk.yaml`, not flex: `app/config/config.yml`
+
 ```yaml
-# app/config/config.yml
 mapado_rest_client_sdk:
     # debug: %kernel.debug%
     # cache_dir: '%kernel.cache_dir%/mapado/rest_client_sdk_bundle/'
@@ -46,6 +61,15 @@ The bundle registers one service for each entity manager that you defined (in th
 The name of the service will be: `mapado.rest_client_sdk.<manager_name>`.
 
 As I named my entity manager `foo`, The service name here will be : `mapado.rest_client_sdk.foo`.
+
+If you use Symfony 3.3+ autowiring feature, you may want to alias something like this: 
+```yaml
+services:
+    # ...
+    Mapado\RestClientSdk\SdkClient: '@mapado.rest_client_sdk.foo'
+```
+
+If you have multiple entity managers, Symfony documentation explains [how to deal with multiple implementation of the same type](https://symfony.com/doc/current/service_container/autowiring.html#dealing-with-multiple-implementations-of-the-same-type).
 
 Imagine I have the following model, as defined in the [component documentation](https://github.com/mapado/rest-client-sdk#configuration):
 ```php
