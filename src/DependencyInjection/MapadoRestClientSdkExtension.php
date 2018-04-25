@@ -157,7 +157,7 @@ class MapadoRestClientSdkExtension extends Extension
         $mapping = new Definition(
             'Mapado\RestClientSdk\Mapping',
             [
-                $config['mappings']['prefix'],
+                isset($config['mappings']['prefix']) ? $config['mappings']['prefix'] : '',
                 $config['mappings']['configuration'],
             ]
         );
