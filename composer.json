@@ -1,6 +1,7 @@
 {
     "name": "mapado/rest-client-sdk-bundle",
     "description": "Rest Client SDK Bundle for hydra API",
+    "type": "symfony-bundle",
     "autoload": {
         "psr-4": { "Mapado\\RestClientSdkBundle\\": "src/" }
     },
