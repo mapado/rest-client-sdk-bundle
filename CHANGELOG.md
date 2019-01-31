@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.25.0 - 2019-01-31
+
+### Changed
+
+  * Add 0.30.0 for `mapado/rest-client-sdk`
+  * Drop compatibility with older version of rest-client-sdk ( < 0.30.0 )
+
 ## 0.24.2 - 2018-08-22
 
 ### Changed

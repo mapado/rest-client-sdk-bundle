@@ -11,14 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class RequestAwareRestClient extends RestClient
 {
-    /**
-     * setRequestStack
-     *
-     * @param RequestStack $requestStack
-     * @access public
-     * @return RestClient
-     */
-    public function setRequestStack(RequestStack $requestStack)
+    public function setRequestStack(RequestStack $requestStack): self
     {
         $request = $requestStack->getMasterRequest();
 
@@ -32,7 +25,7 @@ class RequestAwareRestClient extends RestClient
     /**
      * {@inheritdoc}
      */
-    protected function mergeDefaultParameters(array $parameters)
+    protected function mergeDefaultParameters(array $parameters): array
     {
         $request = $this->getCurrentRequest();
 
