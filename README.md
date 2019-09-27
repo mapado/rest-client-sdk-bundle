@@ -131,8 +131,8 @@ mapado.rest_client_sdk.decorating_ticketing
 services:
   # ... 
   mapado.rest_client_sdk.decorating_foo_http_client:
-      class:     App\Rest\Decorator\DecoratingClient
-      decorates: mapado.rest_client_sdk.foo_http_client
+      class:     'App\Rest\Decorator\DecoratingClient'
+      decorates: 'mapado.rest_client_sdk.foo_http_client'
       arguments: ['@mapado.rest_client_sdk.decorating_foo_http_client.inner']
       public:    true
 
@@ -144,6 +144,7 @@ namespace App\Rest\Decorator;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\RequestInterface;
 
 class DecoratingClient implements ClientInterface
 {
