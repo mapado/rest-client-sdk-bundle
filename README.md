@@ -117,3 +117,93 @@ mapado_rest_client_sdk:
                 cache_item_pool: 'cache.rest_client_sdk' # the id of the cache service
                 cache_prefix: 'mapado_rest_client_'
 ```
+
+### Overriding default http client
+
+Sometime, you need to override the base HTTP client. At Mapado, we like to add a the current page as a `Referrer`, pass down the current `Accept-Language` header, or send an `Authorization` for our API call.
+
+As the HTTP client is automatically generated, the only way to do that is to decorate your default client :
+
+```yaml
+# config/services.yaml or app/config/service.yml
+
+mapado.rest_client_sdk.decorating_ticketing
+services:
+  # ... 
+  mapado.rest_client_sdk.decorating_foo_http_client:
+      class:     App\Rest\Decorator\DecoratingClient
+      decorates: mapado.rest_client_sdk.foo_http_client
+      arguments: ['@mapado.rest_client_sdk.decorating_foo_http_client.inner']
+      public:    true
+
+```
+```php
+<?php
+
+namespace App\Rest\Decorator;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+
+class DecoratingClient implements ClientInterface
+{
+    /**
+     * @var Client
+     */
+    private $decoratedClient;
+    
+    public function __construct(Client $decoratedClient)
+    {
+        $this->decoratedClient = $decoratedClient;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function send(RequestInterface $request, array $options = [])
+    {
+        return $this->decoratedClient->send($request, $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sendAsync(RequestInterface $request, array $options = [])
+    {
+        return $this->decoratedClient->sendAsync($request, $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function request($method, $uri, array $options = [])
+    {
+        if (!isset($options['headers'])) {
+            $options['headers'] = [];
+        }
+
+        $options['headers'] = array_merge(
+            $options['headers'],
+            [
+                'Authorization' => 'Bearer my-great-token',
+                'Accept-Language' => 'fr',
+            ]
+        );
+
+        return $this->decoratedClient->request($method, $uri, $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requestAsync($method, $uri, array $options = [])
+    {
+        return $this->decoratedClient->requestAsync($method, $uri, $options);
+    }
+
+    public function getConfig($option = null)
+    {
+        return $this->decoratedClient->getConfig($option);
+    }
+}
+```
