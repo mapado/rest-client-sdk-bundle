@@ -1,4 +1,11 @@
+
 # CHANGELOG
+
+## 0.25.2 - 2019-10-10
+
+### Changed
+
+  * Add 0.32.0 support for `mapado/rest-client-sdk`
 
 ## 0.25.1 - 2019-09-27
 
