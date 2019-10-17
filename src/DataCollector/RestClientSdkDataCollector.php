@@ -3,6 +3,7 @@
 namespace Mapado\RestClientSdkBundle\DataCollector;
 
 use Mapado\RestClientSdk\SdkClient;
+use Mapado\RestClientSdk\SdkClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -14,21 +15,13 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 class RestClientSdkDataCollector extends DataCollector
 {
     /**
-     * sdkList
-     *
-     * @var array<SdkClient> $sdkList
-     * @access private
+     * @var SdkClientRegistry
      */
-    private $sdkList;
+    private $registry;
 
-    /**
-     * __construct
-     *
-     * @access public
-     */
-    public function __construct(\Traversable $sdkList)
+    public function __construct(SdkClientRegistry $registry)
     {
-        $this->sdkList = $sdkList;
+        $this->registry = $registry;
     }
 
     /**
@@ -36,13 +29,15 @@ class RestClientSdkDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
+        $sdkClientList = $this->registry->getSdkClientList();
+
         $this->data = [
-            'historyLogged' => !empty($this->sdkList),
+            'historyLogged' => !empty($sdkClientList),
             'requestHistory' => []
         ];
 
-        foreach ($this->sdkList as $sdk) {
-            $this->data['requestHistory'] += $sdk->getRestClient()->getRequestHistory();
+        foreach ($sdkClientList as $key => $sdk) {
+            $this->data['requestHistory'][$key] = $sdk->getRestClient()->getRequestHistory();
         }
     }
 
@@ -56,14 +51,26 @@ class RestClientSdkDataCollector extends DataCollector
         return $this->data['historyLogged'];
     }
 
+    public function getNbRequest()
+    {
+        $carry = 0;
+        foreach ($this->data['requestHistory'] as $requestHistory) {
+            $carry += count($requestHistory);
+        }
+
+        return $carry;
+    }
+
     public function getRequestTime()
     {
-        return array_reduce(
-            $this->data['requestHistory'],
-            function ($carry, $item) {
-                return $carry + $item['queryTime'];
+        $carry = 0;
+        foreach ($this->data['requestHistory'] as $requestHistory) {
+            foreach ($requestHistory as $request) {
+                $carry += $request['queryTime'];
             }
-        );
+        }
+
+        return $carry;
     }
 
     /**

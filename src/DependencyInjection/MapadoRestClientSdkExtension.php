@@ -17,18 +17,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 class MapadoRestClientSdkExtension extends Extension
 {
     /**
-     * debug
-     *
      * @var boolean
-     * @access private
      */
     private $debug;
 
     /**
-     * cacheDir
-     *
      * @var string
-     * @access private
      */
     private $cacheDir;
 
@@ -66,11 +60,6 @@ class MapadoRestClientSdkExtension extends Extension
     }
 
     /**
-     * loadEntityManagerList
-     *
-     * @param array $entityManagerList
-     * @param ContainerBuilder $container
-     * @access private
      * @return void
      */
     private function loadEntityManagerList(array $entityManagerList, ContainerBuilder $container)
@@ -78,16 +67,18 @@ class MapadoRestClientSdkExtension extends Extension
         $allClients = [];
         foreach ($entityManagerList as $key => $entityManager) {
             $clientName = $this->loadEntityManager($key, $entityManager, $container);
-            $allClients[] = new Reference($clientName);
+            $allClients[$key] = new Reference($clientName);
         }
 
-        $definition = new Definition('SplFixedArray', [$allClients]);
-        $definition->setFactory(['SplFixedArray', 'fromArray']);
+        $container->setDefinition(
+            'mapado.rest_client_sdk',
+            new Definition('Mapado\RestClientSdk\SdkClientRegistry', [$allClients])
+        );
 
         $mapping = new Definition(
             'Mapado\RestClientSdkBundle\DataCollector\RestClientSdkDataCollector',
             [
-                $definition
+                new Reference('mapado.rest_client_sdk')
             ]
         );
         $mapping->setPublic(false);
@@ -100,12 +91,7 @@ class MapadoRestClientSdkExtension extends Extension
     }
 
     /**
-     * loadEntityManager
-     *
      * @param string $key
-     * @param array $config
-     * @param ContainerBuilder $container
-     * @access private
      * @return void
      */
     private function loadEntityManager($key, array $config, ContainerBuilder $container)

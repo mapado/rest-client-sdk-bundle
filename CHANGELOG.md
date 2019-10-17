@@ -1,6 +1,16 @@
 
 # CHANGELOG
 
+## 0.26.0
+
+## Added
+
+Added a new service `mapado.rest_client_sdk`. This is an instance of `Mapado\RestClientSdk\SdkClientRegistry` that contain all configured sdk clients.
+
+## Changed
+
+- Use mapado/rest-client-sdk `^0.33`
+
 ## 0.25.2 - 2019-10-10
 
 ### Changed
