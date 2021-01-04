@@ -1,6 +1,14 @@
 
 # CHANGELOG
 
+## 0.27.2
+
+Allow Symfony 5
+
+## 0.27.1 & 0.27.0
+
+Broken builds
+
 ## 0.26.0
 
 ## Added
