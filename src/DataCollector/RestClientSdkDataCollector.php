@@ -26,8 +26,10 @@ class RestClientSdkDataCollector extends DataCollector
 
     /**
      * {@inheritdoc}
+     *
+     * @param ?\Throwable $exception
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, $exception = null)
     {
         $sdkClientList = $this->registry->getSdkClientList();
 
