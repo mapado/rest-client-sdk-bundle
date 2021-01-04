@@ -51,6 +51,8 @@ class Configuration implements ConfigurationInterface
         if (method_exists($treeBuilder, 'root')) {
             // for Symfony 2 & 3
             $rootNode = $treeBuilder->root('mapado_rest_client_sdk');
+        } else {
+            $rootNode = $treeBuilder->getRootNode();
         }
 
         $rootNode

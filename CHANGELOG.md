@@ -1,11 +1,11 @@
 
 # CHANGELOG
 
-## 0.27.2
+## 0.27.3
 
 Allow Symfony 5
 
-## 0.27.1 & 0.27.0
+## 0.27.0 → 0.27.2
 
 Broken builds
 
