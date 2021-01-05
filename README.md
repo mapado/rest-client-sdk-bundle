@@ -137,6 +137,7 @@ services:
       public:    true
 
 ```
+
 ```php
 <?php
 
@@ -144,7 +145,9 @@ namespace App\Rest\Decorator;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class DecoratingClient implements ClientInterface
 {
@@ -161,7 +164,7 @@ class DecoratingClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function send(RequestInterface $request, array $options = [])
+    public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
         return $this->decoratedClient->send($request, $options);
     }
@@ -169,7 +172,7 @@ class DecoratingClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function sendAsync(RequestInterface $request, array $options = [])
+    public function sendAsync(RequestInterface $request, array $options = []): PromiseInterface
     {
         return $this->decoratedClient->sendAsync($request, $options);
     }
@@ -177,7 +180,7 @@ class DecoratingClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function request($method, $uri, array $options = [])
+    public function request($method, $uri, array $options = []): ResponseInterface
     {
         if (!isset($options['headers'])) {
             $options['headers'] = [];
@@ -197,7 +200,7 @@ class DecoratingClient implements ClientInterface
     /**
      * {@inheritdoc}
      */
-    public function requestAsync($method, $uri, array $options = [])
+    public function requestAsync($method, $uri, array $options = []): PromiseInterface
     {
         return $this->decoratedClient->requestAsync($method, $uri, $options);
     }
