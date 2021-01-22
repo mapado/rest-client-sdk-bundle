@@ -1,5 +1,8 @@
 
 # CHANGELOG
+## 0.27.4
+
+Allow mapado/rest-client-sdk 0.35
 
 ## 0.27.3
 
