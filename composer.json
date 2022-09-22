@@ -12,8 +12,7 @@
         "mapado/rest-client-sdk": "dev-master || ^0.33 || ^0.34 || ^0.35 || dev-poc-php-8.1"
     },
     "require-dev": {
-        "atoum/atoum": "@stable",
-        "raulfraile/ladybug": "^1.0"
+        "atoum/atoum": "@stable"
     },
     "license": "MIT",
     "authors": [
