@@ -1,5 +1,10 @@
 
 # CHANGELOG
+
+## 0.28.0
+
+- Allow mapado/rest-client-sdk 0.36
+- [breaking] Added php 8.1 compatibility
 ## 0.27.4
 
 Allow mapado/rest-client-sdk 0.35
