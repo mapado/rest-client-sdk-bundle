@@ -6,10 +6,10 @@
         "psr-4": { "Mapado\\RestClientSdkBundle\\": "src/" }
     },
     "require": {
-        "symfony/http-kernel": "^2.7 || ^3.0 || ^4.0 || ^5.0",
-        "symfony/config": "^2.7 || ^3.0 || ^4.0 || ^5.0",
-        "symfony/dependency-injection": "^2.7 || ^3.0 || ^4.0 || ^5.0",
-        "mapado/rest-client-sdk": "^0.33 || ^0.34 || ^0.35 || ^0.36"
+        "symfony/http-kernel": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/config": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
+        "symfony/dependency-injection": "^2.7 || ^3.0 || ^4.0 || ^5.0 || ^6.0",
+        "mapado/rest-client-sdk": "^0.33 || ^0.34 || ^0.35 || ^0.36 || dev-update-symfony-6-4"
     },
     "license": "MIT",
     "authors": [
