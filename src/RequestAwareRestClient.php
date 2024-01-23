@@ -13,7 +13,7 @@ class RequestAwareRestClient extends RestClient
 {
     public function setRequestStack(RequestStack $requestStack): self
     {
-        $request = $requestStack->getMasterRequest();
+        $request = $requestStack->getMainRequest();
 
         if ($request) {
             $this->setCurrentRequest($request);
