@@ -9,7 +9,7 @@
         "symfony/http-kernel": "^5.0 || ^6.0",
         "symfony/config": "^5.0 || ^6.0",
         "symfony/dependency-injection": "^5.0 || ^6.0",
-        "mapado/rest-client-sdk": "^0.33"
+        "mapado/rest-client-sdk": "^0.37"
     },
     "license": "MIT",
     "authors": [
