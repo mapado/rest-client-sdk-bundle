@@ -72,11 +72,11 @@ class MapadoRestClientSdkExtension extends Extension
 
         $container->setDefinition(
             'mapado.rest_client_sdk',
-            new Definition('Mapado\RestClientSdk\SdkClientRegistry', [$allClients])
+            new Definition(\Mapado\RestClientSdk\SdkClientRegistry::class, [$allClients])
         );
 
         $mapping = new Definition(
-            'Mapado\RestClientSdkBundle\DataCollector\RestClientSdkDataCollector',
+            \Mapado\RestClientSdkBundle\DataCollector\RestClientSdkDataCollector::class,
             [
                 new Reference('mapado.rest_client_sdk')
             ]
@@ -109,7 +109,7 @@ class MapadoRestClientSdkExtension extends Extension
         $container->setDefinition($guzzleServiceName, $guzzle);
 
         $restClient = new Definition(
-            'Mapado\RestClientSdkBundle\RequestAwareRestClient',
+            \Mapado\RestClientSdkBundle\RequestAwareRestClient::class,
             [
                 new Reference($guzzleServiceName),
                 $config['server_url']
@@ -123,8 +123,8 @@ class MapadoRestClientSdkExtension extends Extension
             $restClient
         )->addMethodCall('setLogHistory', [$this->debug]);
 
-        $annotationDriver = new Definition(
-            'Mapado\RestClientSdk\Mapping\Driver\AnnotationDriver',
+        $attributeDriver = new Definition(
+            \Mapado\RestClientSdk\Mapping\Driver\AttributeDriver::class,
             [
                 $this->cacheDir,
                 $this->debug,
@@ -136,12 +136,12 @@ class MapadoRestClientSdkExtension extends Extension
             [$config['mappings']['dir']]
         );
         $entityListMapping->setFactory([
-            $annotationDriver,
+            $attributeDriver,
             'loadDirectory'
         ]);
 
         $mapping = new Definition(
-            'Mapado\RestClientSdk\Mapping',
+            \Mapado\RestClientSdk\Mapping::class,
             [
                 isset($config['mappings']['prefix']) ? $config['mappings']['prefix'] : '',
                 $config['mappings']['configuration'],
@@ -155,7 +155,7 @@ class MapadoRestClientSdkExtension extends Extension
         )->addMethodCall('setMapping', [$entityListMapping]);
 
         $unitOfWork = new Definition(
-            'Mapado\RestClientSdk\UnitOfWork',
+            \Mapado\RestClientSdk\UnitOfWork::class,
             [
                 new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
             ]
@@ -167,7 +167,7 @@ class MapadoRestClientSdkExtension extends Extension
         );
 
         $sdkDefinition = new Definition(
-            'Mapado\RestClientSdk\SdkClient',
+            \Mapado\RestClientSdk\SdkClient::class,
             [
                 new Reference(sprintf('mapado.rest_client_sdk.%s_rest_client', $key)),
                 new Reference(sprintf('mapado.rest_client_sdk.%s_mapping', $key)),
