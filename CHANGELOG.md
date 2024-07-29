@@ -1,6 +1,14 @@
 
 # CHANGELOG
 
+## 2.0.1
+
+Fix issue with rest-client-sdk namespace
+
+## 2.0.0
+
+Upgrade to rest-client-sdk 2.0.0
+
 ## 0.28.0
 
 - Allow mapado/rest-client-sdk 0.36
