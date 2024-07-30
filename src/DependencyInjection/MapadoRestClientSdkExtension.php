@@ -92,9 +92,8 @@ class MapadoRestClientSdkExtension extends Extension
 
     /**
      * @param string $key
-     * @return void
      */
-    private function loadEntityManager($key, array $config, ContainerBuilder $container)
+    private function loadEntityManager($key, array $config, ContainerBuilder $container): string
     {
         // create http client
         $guzzleServiceName = sprintf('mapado.rest_client_sdk.%s_http_client', $key);
@@ -124,11 +123,7 @@ class MapadoRestClientSdkExtension extends Extension
         )->addMethodCall('setLogHistory', [$this->debug]);
 
         $attributeDriver = new Definition(
-            \Mapado\RestClientSdk\Mapping\Driver\AttributeDriver::class,
-            [
-                $this->cacheDir,
-                $this->debug,
-            ]
+            \Mapado\RestClientSdk\Mapping\Driver\AttributeDriver::class
         );
 
         $entityListMapping = new Definition(
