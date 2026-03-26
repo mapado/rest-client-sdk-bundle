@@ -1,6 +1,12 @@
 
 # CHANGELOG
 
+## 3.0.0
+
+- [BREAKING] Drop support for PHP < 8.4
+- [BREAKING] Drop support for Symfony < 6.0
+- Allow Symfony 7 and 8
+
 ## 2.0.1
 
 Fix issue with rest-client-sdk namespace
