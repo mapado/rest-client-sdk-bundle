@@ -1,6 +1,11 @@
 
 # CHANGELOG
 
+## Unreleased
+
+- Extend `Symfony\Component\DependencyInjection\Extension\Extension` instead of the HttpKernel one and declare the return types Symfony 7 requires
+- Remove the empty `services.xml` and its loading
+
 ## 3.0.0
 
 - [BREAKING] Drop support for PHP < 8.4

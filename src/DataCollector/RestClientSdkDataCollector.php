@@ -24,12 +24,7 @@ class RestClientSdkDataCollector extends DataCollector
         $this->registry = $registry;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param ?\Throwable $exception
-     */
-    public function collect(Request $request, Response $response, $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $sdkClientList = $this->registry->getSdkClientList();
 
@@ -75,18 +70,12 @@ class RestClientSdkDataCollector extends DataCollector
         return $carry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'mapado_rest_client_sdk';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
     }
