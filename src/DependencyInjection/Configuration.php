@@ -44,18 +44,11 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('mapado_rest_client_sdk');
 
-        if (method_exists($treeBuilder, 'root')) {
-            // for Symfony 2 & 3
-            $rootNode = $treeBuilder->root('mapado_rest_client_sdk');
-        } else {
-            $rootNode = $treeBuilder->getRootNode();
-        }
-
-        $rootNode
+        $treeBuilder->getRootNode()
             ->children()
                 ->booleanNode('debug')
                     ->defaultValue($this->debug)

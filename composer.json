@@ -1,25 +1,28 @@
 {
-    "name": "mapado/rest-client-sdk-bundle",
-    "description": "Rest Client SDK Bundle for hydra API",
-    "type": "symfony-bundle",
-    "autoload": {
-        "psr-4": { "Mapado\\RestClientSdkBundle\\": "src/" }
+  "name": "mapado/rest-client-sdk-bundle",
+  "description": "Rest Client SDK Bundle for hydra API",
+  "type": "symfony-bundle",
+  "autoload": {
+    "psr-4": {
+      "Mapado\\RestClientSdkBundle\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.4",
+    "symfony/http-kernel": "^6.0 || ^7.0 || ^8.0",
+    "symfony/config": "^6.0 || ^7.0 || ^8.0",
+    "symfony/dependency-injection": "^6.0 || ^7.0 || ^8.0",
+    "mapado/rest-client-sdk": "^3.0.0"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julien Deniau",
+      "email": "julien.deniau@gmail.com"
     },
-    "require": {
-        "symfony/http-kernel": "^6.0 || ^7.0 || ^8.0",
-        "symfony/config": "^6.0 || ^7.0 || ^8.0",
-        "symfony/dependency-injection": "^6.0 || ^7.0 || ^8.0",
-        "mapado/rest-client-sdk": "^3.0.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Julien Deniau",
-            "email": "julien.deniau@gmail.com"
-        },
-        {
-            "name": "Dimitri Allegoet",
-            "email": "dallegoet@gmail.com"
-        }
-    ]
+    {
+      "name": "Dimitri Allegoet",
+      "email": "dallegoet@gmail.com"
+    }
+  ]
 }
