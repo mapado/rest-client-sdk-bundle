@@ -3,6 +3,7 @@
 
 ## Unreleased
 
+- Declare the `php: ^8.4` requirement in `composer.json`
 - Extend `Symfony\Component\DependencyInjection\Extension\Extension` instead of the HttpKernel one and declare the return types Symfony 7 requires
 - Remove the empty `services.xml` and its loading
 
