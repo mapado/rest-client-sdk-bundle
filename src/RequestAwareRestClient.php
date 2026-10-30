@@ -33,9 +33,11 @@ class RequestAwareRestClient extends RestClient
         if ($request) {
             $language = $request->headers->get('Accept-Language');
 
-            $defaultParameters['headers'] = [
-                'Accept-Language' => $language,
-            ];
+            if (null !== $language) {
+                $defaultParameters['headers'] = [
+                    'Accept-Language' => $language,
+                ];
+            }
         }
 
         $allParameters = array_replace_recursive($defaultParameters, $parameters);

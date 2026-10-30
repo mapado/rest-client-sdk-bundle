@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## 3.2.1
+
+- Do not forward a null `Accept-Language` header when the current request has none (Guzzle 8 rejects null header values)
+
 ## 3.2.0
 
 - Allow mapado/rest-client-sdk 4.x
