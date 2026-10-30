@@ -1,7 +1,11 @@
 
 # CHANGELOG
 
-## Unreleased
+## 3.2.0
+
+- Allow mapado/rest-client-sdk 4.x
+
+## 3.1.0
 
 - Declare the `php: ^8.4` requirement in `composer.json`
 - Extend `Symfony\Component\DependencyInjection\Extension\Extension` instead of the HttpKernel one and declare the return types Symfony 7 requires

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f8b8c4391a9c916e9acaebeee23d94b",
+    "content-hash": "828ff0d6e5039bd8f3839774ccf8a9a1",
     "packages": [
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -479,21 +479,21 @@
         },
         {
             "name": "mapado/rest-client-sdk",
-            "version": "v3.0.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapado/rest-client-sdk.git",
-                "reference": "df89dbc9d99457f64a6a9191c05f38e053f45205"
+                "reference": "3312576cfab3c244c164d256b543b9406f60f5ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapado/rest-client-sdk/zipball/df89dbc9d99457f64a6a9191c05f38e053f45205",
-                "reference": "df89dbc9d99457f64a6a9191c05f38e053f45205",
+                "url": "https://api.github.com/repos/mapado/rest-client-sdk/zipball/3312576cfab3c244c164d256b543b9406f60f5ba",
+                "reference": "3312576cfab3c244c164d256b543b9406f60f5ba",
                 "shasum": ""
             },
             "require": {
                 "friendsofphp/proxy-manager-lts": "^1.0",
-                "guzzlehttp/guzzle": "^6.2.2 || ^7.5.0",
+                "guzzlehttp/guzzle": "^7.5.0 || ^8.0",
                 "php": "^8.4",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
                 "symfony/http-foundation": "^6.0 || ^7.0 || ^8.0",
@@ -522,6 +522,11 @@
                     ]
                 },
                 "scenarios": {
+                    "guzzle7": {
+                        "conflict": {
+                            "guzzlehttp/guzzle": ">=8.0.0"
+                        }
+                    },
                     "symfony6": {
                         "conflict": {
                             "symfony/http-foundation": ">=7.0.0",
@@ -573,9 +578,9 @@
             "description": "Rest Client SDK for hydra API",
             "support": {
                 "issues": "https://github.com/mapado/rest-client-sdk/issues",
-                "source": "https://github.com/mapado/rest-client-sdk/tree/v3.0.0"
+                "source": "https://github.com/mapado/rest-client-sdk/tree/v4.0.0"
             },
-            "time": "2026-03-26T16:06:48+00:00"
+            "time": "2026-10-30T11:32:16+00:00"
         },
         {
             "name": "psr/cache",
