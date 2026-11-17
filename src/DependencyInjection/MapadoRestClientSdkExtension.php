@@ -49,10 +49,7 @@ class MapadoRestClientSdkExtension extends Extension
      */
     public function getConfiguration(array $config, ContainerBuilder $container): ?ConfigurationInterface
     {
-        return new Configuration(
-            $container->getParameter('kernel.debug'),
-            $container->getParameter('kernel.cache_dir')
-        );
+        return new Configuration($container->getParameter('kernel.debug'));
     }
 
     /**

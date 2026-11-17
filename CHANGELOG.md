@@ -1,6 +1,10 @@
 
 # CHANGELOG
 
+## 3.2.2
+
+- Keep the `%kernel.cache_dir%` placeholder in the `cache_dir` default, so the `config/reference.php` that Symfony 7.4+ generates no longer contains the absolute cache path of the machine that built it
+
 ## 3.2.1
 
 - Do not forward a null `Accept-Language` header when the current request has none (Guzzle 8 rejects null header values)
