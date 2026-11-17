@@ -21,24 +21,14 @@ class Configuration implements ConfigurationInterface
     private $debug;
 
     /**
-     * cacheDir
-     *
-     * @var string
-     * @access private
-     */
-    private $cacheDir;
-
-    /**
      * __construct
      *
      * @param boolean $debug
-     * @param string $cacheDir
      * @access public
      */
-    public function __construct($debug, $cacheDir)
+    public function __construct($debug)
     {
         $this->debug = (bool) $debug;
-        $this->cacheDir = $cacheDir;
     }
 
     /**
@@ -54,7 +44,8 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue($this->debug)
                 ->end()
                 ->scalarNode('cache_dir')
-                    ->defaultValue(sprintf('%s/mapado/rest_client_sdk_bundle/', $this->cacheDir))
+                    // a placeholder keeps the generated config/reference.php identical across machines
+                    ->defaultValue('%kernel.cache_dir%/mapado/rest_client_sdk_bundle/')
                 ->end()
 
                 ->arrayNode('entity_managers')
